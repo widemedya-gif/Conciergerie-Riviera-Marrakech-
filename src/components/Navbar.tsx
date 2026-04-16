@@ -85,50 +85,51 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 md:px-12 py-4",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-700",
         isScrolled 
-          ? "bg-white/90 dark:bg-luxury-black/90 backdrop-blur-md shadow-sm py-3 border-b border-neutral-100 dark:border-neutral-800" 
-          : "bg-transparent"
+          ? "bg-white/80 dark:bg-luxury-black/80 backdrop-blur-xl shadow-lg py-3 border-b border-neutral-100/50 dark:border-neutral-800/50" 
+          : "bg-transparent py-6"
       )}
     >
-      <div className="max-w-[1800px] mx-auto flex items-center justify-between gap-4">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-10 flex items-center justify-between gap-8">
         {/* Logo */}
-        <div
+        <motion.div
           onClick={handleLogoClick}
-          className={cn(
-            "cursor-pointer transition-transform duration-300 hover:scale-105 shrink-0",
-            isScrolled ? "text-luxury-black dark:text-white" : "text-luxury-black dark:text-white"
-          )}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="cursor-pointer flex flex-col shrink-0"
         >
-          <h1 className="text-2xl md:text-3xl font-serif font-bold tracking-tight whitespace-nowrap">
-            CONCIERGE <span className="text-luxury-gold">RIVIERA</span>
+          <h1 className="text-xl md:text-2xl font-serif font-bold tracking-tighter leading-none flex items-center gap-2">
+            <span className="text-luxury-black dark:text-white">CONCIERGE</span>
+            <span className="text-luxury-gold">RIVIERA</span>
           </h1>
-          <p className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] font-sans opacity-80 whitespace-nowrap">
-            Marrakech Luxury Living
-          </p>
-        </div>
+          <div className="flex items-center gap-2 mt-1">
+            <div className="h-[1px] w-4 bg-luxury-gold/50" />
+            <p className="text-[7px] md:text-[9px] uppercase tracking-[0.4em] font-sans font-medium text-neutral-500 dark:text-neutral-400">
+              Marrakech Luxury Living
+            </p>
+          </div>
+        </motion.div>
 
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-4 xl:gap-12">
-          <div className="flex items-center gap-4 xl:gap-8">
+        <div className="hidden lg:flex items-center bg-neutral-100/50 dark:bg-neutral-800/30 backdrop-blur-md px-6 py-2 rounded-full border border-neutral-200/50 dark:border-neutral-700/30">
+          <div className="flex items-center gap-6 xl:gap-10">
             {navLinks.slice(0, 4).map((link) => (
               <button
                 key={link.name}
                 onClick={link.onClick}
                 className={cn(
-                  "text-xs xl:text-sm font-medium tracking-wide transition-all duration-300 relative group whitespace-nowrap",
-                  isScrolled ? "text-luxury-black dark:text-white" : "text-luxury-black dark:text-white"
+                  "text-[11px] xl:text-xs font-bold uppercase tracking-widest transition-all duration-300 relative group",
+                  "text-neutral-600 dark:text-neutral-400 hover:text-luxury-gold dark:hover:text-luxury-gold"
                 )}
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-luxury-gold transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-luxury-gold transition-all duration-300 group-hover:w-full" />
               </button>
             ))}
-          </div>
-          
-          <div className="h-4 w-[1px] bg-neutral-200 dark:bg-neutral-800" />
-          
-          <div className="flex items-center gap-4 xl:gap-8">
+            
+            <div className="h-4 w-[1px] bg-neutral-300 dark:bg-neutral-700" />
+            
             <ServicesMegaMenu isScrolled={isScrolled} />
             
             {navLinks.slice(4).map((link) => (
@@ -136,42 +137,42 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-xs xl:text-sm font-medium tracking-wide transition-all duration-300 relative group whitespace-nowrap",
-                  isScrolled ? "text-luxury-black dark:text-white" : "text-luxury-black dark:text-white"
+                  "text-[11px] xl:text-xs font-bold uppercase tracking-widest transition-all duration-300 relative group",
+                  "text-neutral-600 dark:text-neutral-400 hover:text-luxury-gold dark:hover:text-luxury-gold"
                 )}
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-luxury-gold transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-luxury-gold transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </div>
         </div>
 
         {/* Right Side Actions */}
-        <div className="flex items-center gap-4 xl:gap-8">
+        <div className="flex items-center gap-2 md:gap-4">
           {/* Utility Group */}
-          <div className="hidden xl:flex items-center gap-2 border-r border-neutral-100 dark:border-neutral-800 pr-4">
-            <button className={cn("p-2 transition-colors hover:text-luxury-gold", isScrolled ? "text-luxury-black dark:text-white" : "text-luxury-black dark:text-white")}>
-              <Search size={18} />
+          <div className="hidden sm:flex items-center gap-1 bg-neutral-100/50 dark:bg-neutral-800/30 backdrop-blur-md p-1 rounded-full border border-neutral-200/50 dark:border-neutral-700/30">
+            <button className="p-2 text-neutral-500 hover:text-luxury-gold transition-colors rounded-full hover:bg-white dark:hover:bg-neutral-800">
+              <Search size={16} />
             </button>
 
             {/* Comparison */}
             <button 
               onClick={() => setComparisonModalOpen(true)}
-              className={cn("relative p-2 transition-colors hover:text-luxury-gold", isScrolled ? "text-luxury-black dark:text-white" : "text-luxury-black dark:text-white")}
+              className="relative p-2 text-neutral-500 hover:text-luxury-gold transition-colors rounded-full hover:bg-white dark:hover:bg-neutral-800"
             >
-              <BarChart2 size={18} />
+              <BarChart2 size={16} />
               {comparisonList.length > 0 && (
-                <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-luxury-gold text-white text-[8px] rounded-full flex items-center justify-center font-bold">
+                <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-luxury-gold text-white text-[8px] rounded-full flex items-center justify-center font-bold border-2 border-white dark:border-neutral-900">
                   {comparisonList.length}
                 </span>
               )}
             </button>
             
-            <button className={cn("relative p-2 transition-colors hover:text-luxury-gold", isScrolled ? "text-luxury-black dark:text-white" : "text-luxury-black dark:text-white")}>
-              <Heart size={18} />
+            <button className="relative p-2 text-neutral-500 hover:text-luxury-gold transition-colors rounded-full hover:bg-white dark:hover:bg-neutral-800">
+              <Heart size={16} />
               {favorites.length > 0 && (
-                <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-luxury-bordeaux text-white text-[8px] rounded-full flex items-center justify-center font-bold">
+                <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-luxury-bordeaux text-white text-[8px] rounded-full flex items-center justify-center font-bold border-2 border-white dark:border-neutral-900">
                   {favorites.length}
                 </span>
               )}
@@ -181,11 +182,11 @@ export default function Navbar() {
             <div className="relative">
               <button 
                 onClick={() => setIsCartOpen(!isCartOpen)}
-                className={cn("relative p-2 transition-colors hover:text-luxury-gold", isScrolled ? "text-luxury-black dark:text-white" : "text-luxury-black dark:text-white")}
+                className="relative p-2 text-neutral-500 hover:text-luxury-gold transition-colors rounded-full hover:bg-white dark:hover:bg-neutral-800"
               >
-                <ShoppingCart size={18} />
+                <ShoppingCart size={16} />
                 {cart.length > 0 && (
-                  <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-black dark:bg-white text-white dark:text-black text-[8px] rounded-full flex items-center justify-center font-bold">
+                  <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-luxury-black dark:bg-white text-white dark:text-black text-[8px] rounded-full flex items-center justify-center font-bold border-2 border-white dark:border-neutral-900">
                     {cart.length}
                   </span>
                 )}
@@ -246,21 +247,24 @@ export default function Navbar() {
             </div>
           </div>
 
-          <ThemeToggle />
-
-          <div className="h-8 w-[1px] bg-neutral-100 dark:bg-neutral-800 hidden md:block" />
-
-          {user ? (
-            <div className="flex items-center gap-3">
-              <div className="hidden xl:block text-right">
-                <p className={cn("text-xs font-bold", isScrolled ? "text-luxury-black dark:text-white" : "text-luxury-black dark:text-white")}>{user.name}</p>
-                <p className="text-[8px] text-gray-400 uppercase tracking-widest">{user.role === "owner" ? "Propriétaire" : user.role === "chef" ? "Chef" : "Client"}</p>
-              </div>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            
+            {user ? (
               <div className="relative group">
-                <div className="w-9 h-9 rounded-full border-2 border-luxury-gold p-0.5 cursor-pointer bg-neutral-50 dark:bg-neutral-900 flex items-center justify-center hover:bg-luxury-gold/10 transition-colors">
-                  <User size={18} className="text-luxury-gold" />
-                </div>
-                <div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-100 dark:border-neutral-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-2 z-50">
+                <motion.div 
+                  whileHover={{ scale: 1.05 }}
+                  className="w-10 h-10 rounded-full border-2 border-luxury-gold p-0.5 cursor-pointer bg-neutral-50 dark:bg-neutral-900 flex items-center justify-center hover:shadow-lg hover:shadow-luxury-gold/20 transition-all"
+                >
+                  <User size={20} className="text-luxury-gold" />
+                </motion.div>
+                <div className="absolute top-full right-0 mt-3 w-64 bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-100 dark:border-neutral-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-2 z-50">
+                  <div className="px-4 py-3 border-b border-neutral-100 dark:border-neutral-800 mb-2">
+                    <p className="text-xs font-bold dark:text-white truncate">{user.name}</p>
+                    <p className="text-[9px] text-neutral-400 uppercase tracking-widest mt-0.5">
+                      {user.role === "owner" ? "Propriétaire" : user.role === "chef" ? "Chef" : "Client Privilégié"}
+                    </p>
+                  </div>
                   <button 
                     onClick={() => {
                       if (user.role === "owner") {
@@ -271,7 +275,7 @@ export default function Navbar() {
                         useStore.getState().setClientDashboardOpen(true);
                       }
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800 text-xs font-bold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 transition-colors"
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800 text-[10px] font-bold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 transition-colors"
                   >
                     <User size={16} /> Mon Profil
                   </button>
@@ -279,71 +283,30 @@ export default function Navbar() {
                     <>
                       <button 
                         onClick={() => useStore.getState().setClientDashboardOpen(true)}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-luxury-gold/10 text-luxury-gold text-xs font-bold uppercase tracking-widest transition-colors"
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-luxury-gold/10 text-luxury-gold text-[10px] font-bold uppercase tracking-widest transition-colors"
                       >
                         <LayoutDashboard size={16} /> Dashboard
-                      </button>
-                      <button 
-                        onClick={() => {
-                          useStore.getState().setActiveClientTab("favorites");
-                          useStore.getState().setClientDashboardOpen(true);
-                        }}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800 text-xs font-bold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 transition-colors"
-                      >
-                        <Heart size={16} /> Mes Favoris
                       </button>
                     </>
                   ) : user.role === "chef" ? (
                     <>
                       <button 
                         onClick={() => useStore.getState().setChefDashboardOpen(true)}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-luxury-gold/10 text-luxury-gold text-xs font-bold uppercase tracking-widest transition-colors"
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-luxury-gold/10 text-luxury-gold text-[10px] font-bold uppercase tracking-widest transition-colors"
                       >
                         <LayoutDashboard size={16} /> Dashboard Chef
-                      </button>
-                      <button 
-                        onClick={() => {
-                          useStore.getState().setActiveChefTab("bookings");
-                          useStore.getState().setChefDashboardOpen(true);
-                        }}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800 text-xs font-bold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 transition-colors"
-                      >
-                        <CalendarDays size={16} /> Réservations
                       </button>
                     </>
                   ) : (
                     <>
                       <button 
                         onClick={() => useStore.getState().setOwnerDashboardOpen(true)}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-luxury-gold/10 text-luxury-gold text-xs font-bold uppercase tracking-widest transition-colors"
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-luxury-gold/10 text-luxury-gold text-[10px] font-bold uppercase tracking-widest transition-colors"
                       >
                         <LayoutDashboard size={16} /> Dashboard
                       </button>
-                      <button 
-                        onClick={() => {
-                          useStore.getState().setActiveOwnerTab("listings");
-                          useStore.getState().setOwnerDashboardOpen(true);
-                        }}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800 text-xs font-bold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 transition-colors"
-                      >
-                        <Building2 size={16} /> Mes Biens
-                      </button>
                     </>
                   )}
-                  <button 
-                    onClick={() => {
-                      if (user.role === "owner") {
-                        useStore.getState().setActiveOwnerTab("settings");
-                        useStore.getState().setOwnerDashboardOpen(true);
-                      } else {
-                        useStore.getState().setActiveClientTab("settings");
-                        useStore.getState().setClientDashboardOpen(true);
-                      }
-                    }}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800 text-xs font-bold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 transition-colors"
-                  >
-                    <Settings size={16} /> Paramètres
-                  </button>
                   <div className="h-[1px] bg-neutral-100 dark:bg-neutral-800 my-2" />
                   <button 
                     onClick={() => {
@@ -351,53 +314,49 @@ export default function Navbar() {
                       localStorage.removeItem("auth_token");
                       addNotification("Déconnexion réussie", "info");
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 text-xs font-bold uppercase tracking-widest text-red-600 transition-colors"
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 text-[10px] font-bold uppercase tracking-widest text-red-600 transition-colors"
                   >
                     <LogOut size={16} /> Déconnexion
                   </button>
                 </div>
               </div>
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => {
-                  useStore.getState().setAuthModalView("login");
-                  setAuthModalOpen(true);
-                }}
-                className={cn(
-                  "hidden md:block px-6 py-2.5 rounded-full text-[10px] font-bold tracking-widest uppercase transition-all duration-500 whitespace-nowrap",
-                  "text-luxury-black hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-800"
-                )}
-              >
-                Connexion
-              </button>
-              <button
-                onClick={() => {
-                  useStore.getState().setAuthModalView("register");
-                  setAuthModalOpen(true);
-                }}
-                className={cn(
-                  "px-6 py-2.5 rounded-full text-[10px] font-bold tracking-widest uppercase transition-all duration-500 border whitespace-nowrap",
-                  "border-luxury-black bg-luxury-black text-white hover:bg-transparent hover:text-luxury-black shadow-lg shadow-black/10",
-                  "dark:border-white dark:bg-white dark:text-luxury-black dark:hover:bg-transparent dark:hover:text-white"
-                )}
-              >
-                S'inscrire
-              </button>
-            </div>
-          )}
-
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={cn(
-              "lg:hidden p-2 rounded-full transition-colors",
-              isScrolled ? "text-luxury-black dark:text-white" : "text-luxury-black dark:text-white"
+            ) : (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    useStore.getState().setAuthModalView("login");
+                    setAuthModalOpen(true);
+                  }}
+                  className={cn(
+                    "hidden sm:block px-5 py-2.5 rounded-full text-[10px] font-bold tracking-widest uppercase transition-all duration-300",
+                    "text-neutral-600 hover:text-luxury-black dark:text-neutral-400 dark:hover:text-white"
+                  )}
+                >
+                  Connexion
+                </button>
+                <button
+                  onClick={() => {
+                    useStore.getState().setAuthModalView("register");
+                    setAuthModalOpen(true);
+                  }}
+                  className={cn(
+                    "px-6 py-2.5 rounded-full text-[10px] font-bold tracking-widest uppercase transition-all duration-500",
+                    "bg-luxury-black text-white hover:bg-luxury-gold dark:bg-white dark:text-luxury-black dark:hover:bg-luxury-gold shadow-lg shadow-black/10"
+                  )}
+                >
+                  S'inscrire
+                </button>
+              </div>
             )}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800 text-luxury-black dark:text-white transition-all hover:bg-neutral-200 dark:hover:bg-neutral-700"
+            >
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -405,166 +364,167 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-white dark:bg-luxury-black shadow-xl lg:hidden border-t border-gray-100 dark:border-neutral-800 max-h-[80vh] overflow-y-auto"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-[100] bg-white dark:bg-luxury-black lg:hidden"
           >
-            <div className="flex flex-col p-8 space-y-6">
-              {navLinks.slice(0, 4).map((link) => (
-                <button
-                  key={link.name}
-                  onClick={() => {
-                    if (link.onClick) link.onClick();
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="text-left text-2xl font-serif text-luxury-black dark:text-white hover:text-luxury-gold transition-colors"
-                >
-                  {link.name}
-                </button>
-              ))}
-
-              {/* Mobile Services Accordion */}
-              <div className="space-y-4">
+            <div className="flex flex-col h-full">
+              {/* Mobile Header */}
+              <div className="flex items-center justify-between p-6 border-b border-neutral-100 dark:border-neutral-800">
+                <div className="flex flex-col">
+                  <h1 className="text-lg font-serif font-bold tracking-tight">
+                    CONCIERGE <span className="text-luxury-gold">RIVIERA</span>
+                  </h1>
+                </div>
                 <button 
-                  onClick={() => setMobileAccordion(mobileAccordion === "services" ? null : "services")}
-                  className="flex items-center justify-between w-full text-2xl font-serif text-luxury-black dark:text-white hover:text-luxury-gold transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800"
                 >
-                  Services
-                  <ChevronDown size={20} className={cn("transition-transform", mobileAccordion === "services" && "rotate-180")} />
+                  <X size={20} />
                 </button>
-                
-                <AnimatePresence>
-                  {mobileAccordion === "services" && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pl-4 space-y-6 pt-4 pb-2 border-l-2 border-luxury-gold/20 ml-2">
-                        
-                        {/* Concierge */}
-                        <div>
-                          <h4 className="text-sm font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500 mb-3">Conciergerie</h4>
-                          <ul className="space-y-3">
-                            {conciergeServices.map(s => (
-                              <li key={s.name}>
-                                <button onClick={() => handleMobileServiceClick(s.name)} className="text-left text-gray-600 dark:text-neutral-400 hover:text-luxury-gold transition-colors text-sm flex items-center gap-2">
-                                  <s.icon size={14} /> {s.name}
-                                </button>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        {/* Property */}
-                        <div>
-                          <h4 className="text-sm font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500 mb-3">Propriété</h4>
-                          <ul className="space-y-3">
-                            {propertyServices.map(s => (
-                              <li key={s.name}>
-                                <button onClick={() => handleMobileServiceClick(s.name)} className="text-left text-gray-600 dark:text-neutral-400 hover:text-luxury-gold transition-colors text-sm flex items-center gap-2">
-                                  <s.icon size={14} /> {s.name}
-                                </button>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        {/* Interior Design */}
-                        <div className="bg-luxury-gold/5 p-4 rounded-xl border border-luxury-gold/10">
-                          <h4 className="text-sm font-bold uppercase tracking-widest text-luxury-gold mb-3 flex items-center justify-between">
-                            Design d'Intérieur <span className="text-[8px] bg-luxury-gold text-white px-2 py-0.5 rounded-full">PREMIUM</span>
-                          </h4>
-                          <ul className="space-y-3">
-                            {interiorDesignServices.map(s => (
-                              <li key={s.name}>
-                                <button onClick={() => handleMobileServiceClick(s.name)} className="text-left text-luxury-bordeaux hover:text-luxury-gold transition-colors text-sm flex items-center gap-2">
-                                  <s.icon size={14} /> {s.name}
-                                </button>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
 
-              {navLinks.slice(4).map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-2xl font-serif text-luxury-black dark:text-white hover:text-luxury-gold transition-colors"
-                >
-                  {link.name}
-                </a>
-              ))}
-
-              {user && user.role === "owner" && (
-                <div className="space-y-4 pt-4 border-t border-gray-100 dark:border-neutral-800">
-                  <button 
-                    onClick={() => {
-                      useStore.getState().setOwnerDashboardOpen(true);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full text-left text-xl font-serif text-luxury-gold flex items-center gap-3"
-                  >
-                    <LayoutDashboard size={20} /> Dashboard Propriétaire
-                  </button>
-                  <button 
-                    onClick={() => {
-                      useStore.getState().setActiveOwnerTab("settings");
-                      useStore.getState().setOwnerDashboardOpen(true);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full text-left text-xl font-serif text-luxury-black dark:text-white flex items-center gap-3"
-                  >
-                    <Settings size={20} /> Paramètres
-                  </button>
+              <div className="flex-1 overflow-y-auto p-8 space-y-8">
+                <div className="space-y-6">
+                  {navLinks.slice(0, 4).map((link, idx) => (
+                    <motion.button
+                      key={link.name}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      onClick={() => {
+                        if (link.onClick) link.onClick();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full text-left text-3xl font-serif text-luxury-black dark:text-white hover:text-luxury-gold transition-colors"
+                    >
+                      {link.name}
+                    </motion.button>
+                  ))}
                 </div>
-              )}
 
-              {user && user.role === "chef" && (
-                <div className="space-y-4 pt-4 border-t border-gray-100 dark:border-neutral-800">
+                <div className="h-[1px] bg-neutral-100 dark:bg-neutral-800" />
+
+                {/* Mobile Services Accordion */}
+                <div className="space-y-4">
                   <button 
-                    onClick={() => {
-                      useStore.getState().setChefDashboardOpen(true);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full text-left text-xl font-serif text-luxury-gold flex items-center gap-3"
+                    onClick={() => setMobileAccordion(mobileAccordion === "services" ? null : "services")}
+                    className="flex items-center justify-between w-full text-3xl font-serif text-luxury-black dark:text-white hover:text-luxury-gold transition-colors"
                   >
-                    <LayoutDashboard size={20} /> Dashboard Chef
+                    Nos Services
+                    <ChevronDown size={24} className={cn("transition-transform duration-300", mobileAccordion === "services" && "rotate-180")} />
                   </button>
-                  <button 
-                    onClick={() => {
-                      useStore.getState().setActiveChefTab("settings");
-                      useStore.getState().setChefDashboardOpen(true);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full text-left text-xl font-serif text-luxury-black dark:text-white flex items-center gap-3"
-                  >
-                    <Settings size={20} /> Paramètres
-                  </button>
+                  
+                  <AnimatePresence>
+                    {mobileAccordion === "services" && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pl-4 space-y-8 pt-6 pb-2 border-l border-luxury-gold/30 ml-2">
+                          {/* Concierge */}
+                          <div>
+                            <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 mb-4">Conciergerie</h4>
+                            <div className="grid grid-cols-1 gap-4">
+                              {conciergeServices.map(s => (
+                                <button key={s.name} onClick={() => handleMobileServiceClick(s.name)} className="text-left text-neutral-600 dark:text-neutral-400 hover:text-luxury-gold transition-colors text-sm flex items-center gap-3">
+                                  <div className="w-8 h-8 rounded-lg bg-neutral-50 dark:bg-neutral-800 flex items-center justify-center">
+                                    <s.icon size={14} />
+                                  </div>
+                                  {s.name}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Property */}
+                          <div>
+                            <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 mb-4">Propriété</h4>
+                            <div className="grid grid-cols-1 gap-4">
+                              {propertyServices.map(s => (
+                                <button key={s.name} onClick={() => handleMobileServiceClick(s.name)} className="text-left text-neutral-600 dark:text-neutral-400 hover:text-luxury-gold transition-colors text-sm flex items-center gap-3">
+                                  <div className="w-8 h-8 rounded-lg bg-neutral-50 dark:bg-neutral-800 flex items-center justify-center">
+                                    <s.icon size={14} />
+                                  </div>
+                                  {s.name}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-              )}
 
-              <div className="h-[1px] bg-gray-100 dark:bg-neutral-800 w-full" />
-              {!user && (
-                <button 
-                  onClick={() => {
-                    setAuthModalOpen(true);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full py-5 bg-luxury-black text-white dark:bg-white dark:text-black rounded-2xl font-bold tracking-widest uppercase text-sm"
-                >
-                  Connexion
-                </button>
-              )}
+                <div className="space-y-6">
+                  {navLinks.slice(4).map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block text-3xl font-serif text-luxury-black dark:text-white hover:text-luxury-gold transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile Footer */}
+              <div className="p-8 bg-neutral-50 dark:bg-neutral-900/50 border-t border-neutral-100 dark:border-neutral-800">
+                {!user ? (
+                  <div className="grid grid-cols-2 gap-4">
+                    <button 
+                      onClick={() => {
+                        useStore.getState().setAuthModalView("login");
+                        setAuthModalOpen(true);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] border border-neutral-200 dark:border-neutral-700"
+                    >
+                      Connexion
+                    </button>
+                    <button 
+                      onClick={() => {
+                        useStore.getState().setAuthModalView("register");
+                        setAuthModalOpen(true);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] bg-luxury-black text-white dark:bg-white dark:text-black"
+                    >
+                      S'inscrire
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full border-2 border-luxury-gold p-0.5">
+                        <div className="w-full h-full rounded-full bg-neutral-200 flex items-center justify-center">
+                          <User size={20} className="text-luxury-gold" />
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold">{user.name}</p>
+                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest">{user.role}</p>
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => {
+                        setUser(null);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600"
+                    >
+                      <LogOut size={20} />
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </motion.div>
         )}
